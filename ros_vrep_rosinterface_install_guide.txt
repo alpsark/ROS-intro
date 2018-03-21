@@ -1,0 +1,51 @@
+1) install Ubuntu 16 x86_64
+2) install ros kinetic (see http://wiki.ros.org/kinetic/Installation/Ubuntu)
+	# make sure you have the "desktop-full" ROS package:
+	sudo apt install ros-kinetic-desktop-full
+3) install V-REP Linux 64-bit
+	mkdir ~/Simulators
+	cd ~/Simulators
+	wget http://coppeliarobotics.com/files/V-REP_PRO_EDU_V3_4_0_Linux.tar.gz
+	cd ~
+	tar zvxf ~/Simulators/V-REP_PRO_EDU_V3_4_0_Linux.tar.gz
+	# set the VREP_ROOT variable in ~/.bashrc:
+	echo 'export VREP_ROOT="~/Simulators/V-REP_PRO_EDU_V3_4_0_Linux"' >> ~/.bashrc
+	source ~/.bashrc
+4) install some required Ubuntu packages:
+	sudo apt install git cmake python-tempita python-catkin-tools python-lxml default-jre
+5) install saxon:
+	cd ~/Downloads
+	wget http://downloads.sourceforge.net/project/saxon/Saxon-HE/9.7/SaxonHE9-7-0-8J.zip
+	cd ~
+	mkdir -p saxon/bin
+	cd saxon
+	unzip ~/Downloads/SaxonHE9-7-0-8J.zip
+	echo -e '#!/bin/sh\njava -jar "`dirname "$0"`/../saxon9he.jar" "$@"' > bin/saxon
+	chmod a+x bin/saxon
+	# update PATH env var with the location of saxon executable:
+	echo 'export PATH="$PATH:$HOME/saxon/bin"' >> ~/.bashrc
+	source ~/.bashrc
+5) install v_repStubsGen (https://github.com/fferri/v_repStubsGen.git)
+	mkdir -p ~/Programs/python-packages
+	cd ~/Programs/python-packages
+	git clone https://github.com/fferri/v_repStubsGen.git
+	echo 'export PYTHONPATH="$PYTHONPATH:~/Programs/python-packages"' >> ~/.bashrc
+	source ~/.bashrc
+6) setup catkin workspace:
+	mkdir -p ~/dummy_catkin_ws/src
+	cd ~/dummy_catkin_ws/src
+	catkin_init_workspace
+	cd ..
+	catkin build
+	source devel/setup.bash
+	git clone https://github.com/fferri/v_repExtRosInterface.git vrep_ros_interface
+	catkin build
+	https://github.com/fferri/v_repExtRosInterface.git
+7) copy vrep-ros packages to your catkin space
+	cd ~/dummy_catkin_ws
+	cp -r ~/Simulators/V-REP_PRO_EDU_V3_4_0_Linux/programming/ros_packages/ src/
+	catkin build
+	#If there is no problem
+	cp devel/lib/libv_repExtRos* ~/Simulators/V-REP_PRO_EDU_V3_4_0_Linux/
+
+### Now you can remove dummy_ros_ws and run 1) roscore, 2) ~/Simulators/V-REP_PRO_EDU_V3_4_0_Linux/vrep.sh
