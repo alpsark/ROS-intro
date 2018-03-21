@@ -1,2 +1,13 @@
 # ROS-intro
 introduction to ros , rviz and moving robot with keyboard
+
+
+run "cd rosws"  
+sudo apt-get install ros-kinetic-joy  
+run "catkin_make" make sure there are no errors.  
+edit ~/.bashrc, add "source /home/..../rosws/devel/setup.bash" to the end of the .bashrc file.  
+close the terminal and reopen the terminal  
+run roscore  
+run vrep, open scenes/assignment1.ttt  
+run "roslaunch vrep_apps base.launch" you can control the robot with arrow buttons in this terminal.  
+runrun rviz rviz  
