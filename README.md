@@ -2,7 +2,7 @@
 introduction to ros , rviz and moving robot with keyboard
 
 
-run "cd rosws"  
+run "cd ros_ws"  
 sudo apt-get install ros-kinetic-joy  
 run "catkin_make" make sure there are no errors.  
 edit ~/.bashrc, add "source /home/..../rosws/devel/setup.bash" to the end of the .bashrc file.  
